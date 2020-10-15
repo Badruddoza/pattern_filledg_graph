@@ -1,0 +1,44 @@
+rm(list=ls())
+library(ggplot2)
+remotes::install_github("coolbutuseless/ggpattern")
+require(ggpattern)
+
+df <- data.frame(level = c("a", "b", "c", 'd'), outcome = c(2.3, 1.9, 3.2, 1))
+ggplot(df) +
+  geom_col_pattern(
+    aes(level, outcome, pattern_fill = level), 
+    pattern = 'stripe',
+    fill    = 'white',
+    colour  = 'black'
+  ) +
+  theme_bw(18) +
+  theme(legend.position = 'none') + 
+  labs(
+    title    = "ggpattern::geom_pattern_col()",
+    subtitle = "pattern = 'stripe'"
+  ) +
+  coord_fixed(ratio = 1/2)
+
+
+
+df <- data.frame(level = c("a", "b", "c", 'd'), outcome = c(2.3, 1.9, 3.2, 1))
+
+p <- ggplot(df, aes(level, outcome)) +
+  geom_col_pattern(
+    aes(pattern = level, pattern_angle = level, pattern_spacing = level),
+    fill            = 'white',
+    colour          = 'black',
+    pattern_density = 0.35,
+    pattern_fill    = 'black',
+    pattern_colour  = 'black'
+  ) +
+  theme_bw() +
+  labs(
+    title    = "ggpattern::geom_col_pattern()",
+    subtitle = 'geometry-based patterns'
+  ) +
+  scale_pattern_spacing_discrete(range = c(0.01, 0.05)) +
+  theme(legend.position = 'none') +
+  coord_fixed(ratio = 1)
+
+p
